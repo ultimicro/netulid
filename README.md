@@ -3,6 +3,12 @@
 This is a dependency-free, high quality and high performance [ULID](https://github.com/ulid/spec) implementation for
 .NET 5. It is 100% conformance to the specifications.
 
+| Package                        | Version                                                                                                                                   |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| NetUlid                        | [![Nuget](https://img.shields.io/nuget/v/NetUlid)](https://www.nuget.org/packages/NetUlid/)                                               |
+| NetUlid.Npgsql                 | [![Nuget](https://img.shields.io/nuget/v/NetUlid.Npgsql)](https://www.nuget.org/packages/NetUlid.Npgsql/)                                 |
+| NetUlid.Npgsql.EntityFramework | [![Nuget](https://img.shields.io/nuget/v/NetUlid.Npgsql.EntityFramework)](https://www.nuget.org/packages/NetUlid.Npgsql.EntityFramework/) |
+
 ## When to use ULID
 
 You should use ULID if you plan to migrate your data to the distributed database in the future and your data requires
@@ -119,6 +125,10 @@ Now you can use `Ulid` on the JSON model. The input will be accepted as canonica
 ### Entity Framework Core
 
 #### PostgreSQL via Npgsql
+
+First you need to install
+[NetUlid.Npgsql.EntityFramework](https://www.nuget.org/packages/NetUlid.Npgsql.EntityFramework/). Then you can
+register `Ulid` support with the following code:
 
 ```csharp
 using NetUlid;
