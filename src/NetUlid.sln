@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid", "NetUlid\NetUlid.csproj", "{B4DBEADC-41F9-40A2-94AE-83372E31196E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUlid", "NetUlid\NetUlid.csproj", "{B4DBEADC-41F9-40A2-94AE-83372E31196E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Tests", "NetUlid.Tests\NetUlid.Tests.csproj", "{BE2C1B27-A406-44E4-91A8-EB65113F48B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUlid.Tests", "NetUlid.Tests\NetUlid.Tests.csproj", "{BE2C1B27-A406-44E4-91A8-EB65113F48B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Npgsql", "NetUlid.Npgsql\NetUlid.Npgsql.csproj", "{FF05245C-AF9F-4588-947C-C1D5F6FDD236}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUlid.Npgsql", "NetUlid.Npgsql\NetUlid.Npgsql.csproj", "{FF05245C-AF9F-4588-947C-C1D5F6FDD236}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Npgsql.Tests", "NetUlid.Npgsql.Tests\NetUlid.Npgsql.Tests.csproj", "{719104BD-E031-4DFB-A707-3DAAFDA99128}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUlid.Npgsql.Tests", "NetUlid.Npgsql.Tests\NetUlid.Npgsql.Tests.csproj", "{719104BD-E031-4DFB-A707-3DAAFDA99128}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Npgsql.EntityFramework", "NetUlid.Npgsql.EntityFramework\NetUlid.Npgsql.EntityFramework.csproj", "{F5505F45-0EBF-4AF0-8873-3618CDE2D85A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUlid.Npgsql.EntityFramework", "NetUlid.Npgsql.EntityFramework\NetUlid.Npgsql.EntityFramework.csproj", "{F5505F45-0EBF-4AF0-8873-3618CDE2D85A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Npgsql.EntityFramework.Tests", "NetUlid.Npgsql.EntityFramework.Tests\NetUlid.Npgsql.EntityFramework.Tests.csproj", "{56A4DFE6-47DC-403F-9AAD-01C51180D09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUlid.Npgsql.EntityFramework.Tests", "NetUlid.Npgsql.EntityFramework.Tests\NetUlid.Npgsql.EntityFramework.Tests.csproj", "{56A4DFE6-47DC-403F-9AAD-01C51180D09E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Tool", "NetUlid.Tool\NetUlid.Tool.csproj", "{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,9 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B4DBEADC-41F9-40A2-94AE-83372E31196E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -100,5 +99,23 @@ Global
 		{56A4DFE6-47DC-403F-9AAD-01C51180D09E}.Release|x64.Build.0 = Release|Any CPU
 		{56A4DFE6-47DC-403F-9AAD-01C51180D09E}.Release|x86.ActiveCfg = Release|Any CPU
 		{56A4DFE6-47DC-403F-9AAD-01C51180D09E}.Release|x86.Build.0 = Release|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Debug|x64.Build.0 = Debug|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Debug|x86.Build.0 = Debug|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|x64.ActiveCfg = Release|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|x64.Build.0 = Release|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|x86.ActiveCfg = Release|Any CPU
+		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A9E69A6-3C67-4CAC-92E7-386E6DF0A188}
 	EndGlobalSection
 EndGlobal
