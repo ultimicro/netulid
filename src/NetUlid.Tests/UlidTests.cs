@@ -1,5 +1,6 @@
 ﻿namespace NetUlid.Tests
 {
+    using System;
     using System.Buffers;
     using Xunit;
 
@@ -22,6 +23,42 @@
             var result = subject.ToByteArray();
 
             Assert.Equal(binary, result);
+        }
+
+        [Fact]
+        public void Time_FromInstanceSpecifiedTimestampInGenerate_ShouldReturnDateTimeRepresentThatTimestamp()
+        {
+            var subject = Ulid.Generate(1620900032009);
+            var result = subject.Time;
+
+            Assert.Equal(new DateTime(2021, 5, 13, 10, 0, 32, 9, DateTimeKind.Utc), result);
+            Assert.Equal(DateTimeKind.Utc, result.Kind);
+        }
+
+        [Fact]
+        public void Time_FromNullInstance_ShouldReturnUnixEpoch()
+        {
+            var result = Ulid.Null.Time;
+
+            Assert.Equal(DateTime.UnixEpoch, result);
+            Assert.Equal(DateTimeKind.Utc, result.Kind);
+        }
+
+        [Theory]
+        [InlineData(Ulid.MinTimestamp)]
+        [InlineData(Ulid.MaxTimestamp)]
+        [InlineData(1L)]
+        public void Timestamp_FromInstanceSpecifiedTimestampInGenerate_ShouldReturnTheSameValue(long timestamp)
+        {
+            var subject = Ulid.Generate(timestamp);
+
+            Assert.Equal(timestamp, subject.Timestamp);
+        }
+
+        [Fact]
+        public void Timestamp_FromNullInstance_ShouldReturnZero()
+        {
+            Assert.Equal(0, Ulid.Null.Timestamp);
         }
 
         [Fact]

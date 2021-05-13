@@ -33,6 +33,7 @@
 
         private const string Base32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
         private const int DataSize = 16;
+        private static readonly long UnixEpochTicks = DateTime.UnixEpoch.Ticks;
         private static readonly byte[] InverseBase32 = new byte[]
         {
             255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, // controls
@@ -148,6 +149,39 @@
                 {
                     Unsafe.CopyBlockUnaligned(d, s, DataSize);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets time of this instance.
+        /// </summary>
+        /// <value>
+        /// Time of this instance, in UTC.
+        /// </value>
+        /// <remarks>
+        /// <see cref="DateTime.Kind"/> of the returned value will be <see cref="DateTimeKind.Utc"/>.
+        /// </remarks>
+        public DateTime Time => new DateTime((this.Timestamp * TimeSpan.TicksPerMillisecond) + UnixEpochTicks, DateTimeKind.Utc);
+
+        /// <summary>
+        /// Gets timestamp of this instance.
+        /// </summary>
+        /// <value>
+        /// Timestamp of this instance, in milliseconds since January 1, 1970 12:00 AM UTC.
+        /// </value>
+        public long Timestamp
+        {
+            get
+            {
+                byte* data = stackalloc byte[8];
+
+                fixed (void* s = this.data)
+                {
+                    Unsafe.InitBlockUnaligned(data, 0, 8);
+                    Unsafe.CopyBlock(data + 2, s, 6);
+                }
+
+                return BinaryPrimitives.ReadInt64BigEndian(new ReadOnlySpan<byte>(data, 8));
             }
         }
 
