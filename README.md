@@ -8,6 +8,7 @@ This is a dependency-free, high quality and high performance [ULID](https://gith
 | NetUlid                        | [![Nuget](https://img.shields.io/nuget/v/NetUlid)](https://www.nuget.org/packages/NetUlid/)                                               |
 | NetUlid.Npgsql                 | [![Nuget](https://img.shields.io/nuget/v/NetUlid.Npgsql)](https://www.nuget.org/packages/NetUlid.Npgsql/)                                 |
 | NetUlid.Npgsql.EntityFramework | [![Nuget](https://img.shields.io/nuget/v/NetUlid.Npgsql.EntityFramework)](https://www.nuget.org/packages/NetUlid.Npgsql.EntityFramework/) |
+| NetUlid.Tool                   | [![Nuget](https://img.shields.io/nuget/v/NetUlid.Tool)](https://www.nuget.org/packages/NetUlid.Tool)                                      |
 
 ## When to use ULID
 
@@ -150,6 +151,12 @@ public void ConfigureServices(IServiceCollection services)
 
 Now you can use `Ulid` on the EF model. The data type on the PostgreSQL will be `bytea`. The query is fully
 support `Ulid` comparison like `.Where(r => r.Id >= ulid)`.
+
+## CLI Tool
+
+We also provide [.NET Tool](https://www.nuget.org/packages/NetUlid.Tool) for ULID related tasks. Follow the guide how to
+use .NET Tool [here](https://docs.microsoft.com/en-us/dotnet/core/tools/global-tools) for the instructions how to
+install and use it.
 
 ## The Ulid structure
 
