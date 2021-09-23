@@ -104,24 +104,8 @@ additional works. The input will be accepted as canonical form.
 
 ### System.Text.Json
 
-You need to register `UlidJsonConverter` that shipped with this package to `JsonSerializerOptions.Converters`. Here is
-the example to do this on ASP.NET Core:
-
-```csharp
-using NetUlid;
-
-public void ConfigureServices(IServiceCollection services)
-{
-    services
-        .AddControllers()
-        .AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.Converters.Insert(0, new UlidJsonConverter());
-        });
-}
-```
-
-Now you can use `Ulid` on the JSON model. The input will be accepted as canonical form.
+The `Ulid` structure has `JsonConverterAttribute` applied so that mean it can be using with `System.Text.Json` without
+any additional works.
 
 ### Entity Framework Core
 

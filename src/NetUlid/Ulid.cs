@@ -6,6 +6,7 @@
     using System.Numerics;
     using System.Runtime.CompilerServices;
     using System.Security.Cryptography;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// Represents a Universally Unique Lexicographically Sortable Identifier (ULID).
@@ -13,6 +14,7 @@
     /// <remarks>
     /// This is an implementation of https://github.com/ulid/spec.
     /// </remarks>
+    [JsonConverter(typeof(UlidJsonConverter))]
     [TypeConverter(typeof(UlidConverter))]
     public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     {
