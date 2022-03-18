@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	<TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
-    <Version>1.0.2</Version>
-    <Description>Entity Framework Core Extensions for Npgsql to provide Ulid supports in the model.</Description>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
+		<Version>1.0.2</Version>
+		<Description>Entity Framework Core Extensions for Npgsql to provide Ulid supports in the model.</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\NetUlid.Npgsql\NetUlid.Npgsql.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\NetUlid.Npgsql\NetUlid.Npgsql.csproj" />
+	</ItemGroup>
 
 </Project>
