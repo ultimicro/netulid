@@ -1,0 +1,10 @@
+{
+  "csharp.referencesCodeLens.enabled": false,
+  "editor.formatOnType": true,
+  "editor.rulers": [160],
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.useModernNet": true
+}
