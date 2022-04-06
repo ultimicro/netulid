@@ -4,7 +4,6 @@ using System;
 using System.Buffers.Binary;
 using System.ComponentModel;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 
@@ -34,7 +33,6 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     public static readonly Ulid Null = default;
 
     private const string Base32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
-    private const int DataSize = 16;
     private static readonly long UnixEpochTicks = DateTime.UnixEpoch.Ticks;
     private static readonly byte[] InverseBase32 = new byte[]
     {
@@ -80,7 +78,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
 
     [ThreadStatic]
     private static GenerationData? lastGeneration;
-    private fixed byte data[DataSize];
+    private fixed byte data[16];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Ulid"/> structure by using the specified timestamp and randomness.
@@ -115,18 +113,22 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
         BinaryPrimitives.WriteInt64BigEndian(buffer, timestamp);
 
         // Write data.
-        fixed (byte* p = this.data)
-        {
-            fixed (byte* t = buffer)
-            {
-                Unsafe.CopyBlock(p + 0, t + 2, 6);
-            }
-
-            fixed (void* r = randomness)
-            {
-                Unsafe.CopyBlock(p + 6, r, 10);
-            }
-        }
+        this.data[0x00] = buffer[2];
+        this.data[0x01] = buffer[3];
+        this.data[0x02] = buffer[4];
+        this.data[0x03] = buffer[5];
+        this.data[0x04] = buffer[6];
+        this.data[0x05] = buffer[7];
+        this.data[0x06] = randomness[0];
+        this.data[0x07] = randomness[1];
+        this.data[0x08] = randomness[2];
+        this.data[0x09] = randomness[3];
+        this.data[0x0A] = randomness[4];
+        this.data[0x0B] = randomness[5];
+        this.data[0x0C] = randomness[6];
+        this.data[0x0D] = randomness[7];
+        this.data[0x0E] = randomness[8];
+        this.data[0x0F] = randomness[9];
     }
 
     /// <summary>
@@ -140,17 +142,14 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     /// </exception>
     public Ulid(ReadOnlySpan<byte> binary)
     {
-        if (binary.Length != DataSize)
+        if (binary.Length != 16)
         {
-            throw new ArgumentException($"The value must be {DataSize} bytes exactly.", nameof(binary));
+            throw new ArgumentException("The value must be 16 bytes exactly.", nameof(binary));
         }
 
-        fixed (void* d = this.data)
+        for (var i = 0; i < 16; i++)
         {
-            fixed (void* s = binary)
-            {
-                Unsafe.CopyBlockUnaligned(d, s, DataSize);
-            }
+            this.data[i] = binary[i];
         }
     }
 
@@ -175,15 +174,16 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     {
         get
         {
-            byte* data = stackalloc byte[8];
+            Span<byte> data = stackalloc byte[8];
 
-            fixed (void* s = this.data)
-            {
-                Unsafe.InitBlockUnaligned(data, 0, 8);
-                Unsafe.CopyBlock(data + 2, s, 6);
-            }
+            data[2] = this.data[0];
+            data[3] = this.data[1];
+            data[4] = this.data[2];
+            data[5] = this.data[3];
+            data[6] = this.data[4];
+            data[7] = this.data[5];
 
-            return BinaryPrimitives.ReadInt64BigEndian(new ReadOnlySpan<byte>(data, 8));
+            return BinaryPrimitives.ReadInt64BigEndian(data);
         }
     }
 
@@ -314,7 +314,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
         }
 
         // Decode.
-        Span<byte> data = stackalloc byte[DataSize];
+        Span<byte> data = stackalloc byte[16];
 
         data[0x0] = (byte)((c << 5) | GetValue(1));                                     // |00[111|11111|][11111111][11111111][11111111][11111111][11111111]
         data[0x1] = (byte)((GetValue(2) << 3) | ((c = GetValue(3)) >> 2));              // 00[11111111][|11111|111][11|111111][11111111][11111111][11111111]
@@ -355,7 +355,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
 
     public int CompareTo(Ulid other)
     {
-        for (var i = 0; i < DataSize; i++)
+        for (var i = 0; i < 16; i++)
         {
             var l = this.data[i];
             var r = other.data[i];
@@ -389,7 +389,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
 
     public bool Equals(Ulid other)
     {
-        for (var i = 0; i < DataSize; i++)
+        for (var i = 0; i < 16; i++)
         {
             if (this.data[i] != other.data[i])
             {
@@ -415,7 +415,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
         // https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-overriding-gethashcode
         var result = unchecked((int)2166136261);
 
-        for (var i = 0; i < DataSize; i++)
+        for (var i = 0; i < 16; i++)
         {
             result = (result * 16777619) ^ this.data[i];
         }
@@ -434,17 +434,14 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     /// </exception>
     public void Write(Span<byte> output)
     {
-        if (output.Length < DataSize)
+        if (output.Length < 16)
         {
             throw new ArgumentException("The size of buffer is not enough.", nameof(output));
         }
 
-        fixed (void* d = output)
+        for (var i = 0; i < 16; i++)
         {
-            fixed (void* s = this.data)
-            {
-                Unsafe.CopyBlockUnaligned(d, s, DataSize);
-            }
+            output[i] = this.data[i];
         }
     }
 
@@ -456,14 +453,11 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     /// </returns>
     public byte[] ToByteArray()
     {
-        var result = new byte[DataSize];
+        var result = new byte[16];
 
-        fixed (void* d = result)
+        for (var i = 0; i < 16; i++)
         {
-            fixed (void* s = this.data)
-            {
-                Unsafe.CopyBlockUnaligned(d, s, DataSize);
-            }
+            result[i] = this.data[i];
         }
 
         return result;
