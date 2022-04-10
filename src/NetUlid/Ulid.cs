@@ -151,7 +151,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     /// <remarks>
     /// <see cref="DateTime.Kind"/> of the returned value will be <see cref="DateTimeKind.Utc"/>.
     /// </remarks>
-    public DateTime Time => new DateTime((this.Timestamp * TimeSpan.TicksPerMillisecond) + UnixEpochTicks, DateTimeKind.Utc);
+    public DateTime Time => new(UnixEpochTicks + (this.Timestamp * TimeSpan.TicksPerMillisecond), DateTimeKind.Utc);
 
     /// <summary>
     /// Gets timestamp of this instance.
@@ -345,22 +345,10 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
 
     public int CompareTo(Ulid other)
     {
-        for (var i = 0; i < 16; i++)
+        fixed (void* p = this.data)
         {
-            var l = this.data[i];
-            var r = other.data[i];
-
-            if (l < r)
-            {
-                return -1;
-            }
-            else if (l > r)
-            {
-                return 1;
-            }
+            return new ReadOnlySpan<byte>(p, 16).SequenceCompareTo(new(other.data, 16));
         }
-
-        return 0;
     }
 
     public int CompareTo(object? obj)
@@ -379,15 +367,10 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
 
     public bool Equals(Ulid other)
     {
-        for (var i = 0; i < 16; i++)
+        fixed (void* p = this.data)
         {
-            if (this.data[i] != other.data[i])
-            {
-                return false;
-            }
+            return new ReadOnlySpan<byte>(p, 16).SequenceEqual(new(other.data, 16));
         }
-
-        return true;
     }
 
     public override bool Equals(object? obj)
