@@ -77,7 +77,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
     };
 
     [ThreadStatic]
-    private static GenerationData? lastGeneration;
+    private static Generation? lastGeneration;
     private fixed byte data[16];
 
     /// <summary>
@@ -113,22 +113,11 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
         BinaryPrimitives.WriteInt64BigEndian(buffer, timestamp);
 
         // Write data.
-        this.data[0x00] = buffer[2];
-        this.data[0x01] = buffer[3];
-        this.data[0x02] = buffer[4];
-        this.data[0x03] = buffer[5];
-        this.data[0x04] = buffer[6];
-        this.data[0x05] = buffer[7];
-        this.data[0x06] = randomness[0];
-        this.data[0x07] = randomness[1];
-        this.data[0x08] = randomness[2];
-        this.data[0x09] = randomness[3];
-        this.data[0x0A] = randomness[4];
-        this.data[0x0B] = randomness[5];
-        this.data[0x0C] = randomness[6];
-        this.data[0x0D] = randomness[7];
-        this.data[0x0E] = randomness[8];
-        this.data[0x0F] = randomness[9];
+        fixed (byte* p = this.data)
+        {
+            buffer[2..].CopyTo(new Span<byte>(p, 6));
+            randomness.CopyTo(new Span<byte>(p + 6, 10));
+        }
     }
 
     /// <summary>
@@ -250,7 +239,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
             throw new ArgumentOutOfRangeException(nameof(timestamp));
         }
 
-        // We don't generate this inside a lock due to most of the time the timestamp will be different.
+        // Generate randomness.
         Span<byte> randomness = stackalloc byte[10];
 
         RandomNumberGenerator.Fill(randomness);
@@ -258,13 +247,14 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
         // Check if the current time is the same as last generation.
         if (lastGeneration == null)
         {
-            lastGeneration = new GenerationData()
+            lastGeneration = new Generation()
             {
                 Timestamp = timestamp,
             };
         }
         else if (lastGeneration.Timestamp == timestamp)
         {
+            // Increase randomness by one.
             var r = new BigInteger(lastGeneration.Randomness, true, true);
             var n = ++r;
 
@@ -504,7 +494,7 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
         return new string(result);
     }
 
-    private sealed class GenerationData
+    private sealed class Generation
     {
         public long Timestamp { get; set; }
 
