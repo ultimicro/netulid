@@ -5,7 +5,9 @@ using System.Buffers.Binary;
 using System.ComponentModel;
 using System.Numerics;
 using System.Security.Cryptography;
+#if NETCOREAPP3_0_OR_GREATER
 using System.Text.Json.Serialization;
+#endif
 
 /// <summary>
 /// Represents a Universally Unique Lexicographically Sortable Identifier (ULID).
@@ -13,7 +15,9 @@ using System.Text.Json.Serialization;
 /// <remarks>
 /// This is an implementation of https://github.com/ulid/spec.
 /// </remarks>
+#if NETCOREAPP3_0_OR_GREATER
 [JsonConverter(typeof(UlidJsonConverter))]
+#endif
 [TypeConverter(typeof(UlidConverter))]
 public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
 {
