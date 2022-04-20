@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetUlid.Tests", "NetUlid.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Tool", "NetUlid.Tool\NetUlid.Tool.csproj", "{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetUlid.Benchmarks", "NetUlid.Benchmarks\NetUlid.Benchmarks.csproj", "{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|x64.Build.0 = Release|Any CPU
 		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|x86.ActiveCfg = Release|Any CPU
 		{B43D6FFC-843B-4B0D-A4B1-0CA8F197D240}.Release|x86.Build.0 = Release|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Debug|x64.Build.0 = Debug|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Debug|x86.Build.0 = Debug|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Release|x64.ActiveCfg = Release|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Release|x64.Build.0 = Release|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Release|x86.ActiveCfg = Release|Any CPU
+		{77AA0AE2-128E-4A0F-AF9B-8EBA1728ADEC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,3 +1,4 @@
 .vs/
+/BenchmarkDotNet.Artifacts/
 bin/
 obj/
