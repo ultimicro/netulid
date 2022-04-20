@@ -412,9 +412,9 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
             throw new ArgumentException("The size of buffer is not enough.", nameof(output));
         }
 
-        for (var i = 0; i < 16; i++)
+        fixed (void* p = this.data)
         {
-            output[i] = this.data[i];
+            new ReadOnlySpan<byte>(p, 16).CopyTo(output);
         }
     }
 
