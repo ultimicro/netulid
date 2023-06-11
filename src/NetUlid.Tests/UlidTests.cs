@@ -62,6 +62,21 @@
         }
 
         [Fact]
+        public void Randomness_FromNullInstance_ShouldReturnZeroBytes()
+        {
+            Assert.Equal(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, Ulid.Null.Randomness);
+        }
+
+        [Fact]
+        public void Randomness_FromNonNullInstance_ShouldReturnCorrespondingRandomness()
+        {
+            var rand = new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09 };
+            var subject = new Ulid(1616419012412, rand);
+
+            Assert.Equal(rand, subject.Randomness);
+        }
+
+        [Fact]
         public void Generate_WithTimestampSameAsPrevious_ShouldIncreaseRandomness()
         {
             var timestamp = 1616419012412;
