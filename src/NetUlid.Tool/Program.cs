@@ -1,18 +1,17 @@
-﻿namespace NetUlid.Tool
+﻿namespace NetUlid.Tool;
+
+using System.CommandLine;
+using System.Threading.Tasks;
+
+public static class Program
 {
-    using System.CommandLine;
-    using System.Threading.Tasks;
-
-    public static class Program
+    public static async Task<int> Main(string[] args)
     {
-        public static async Task<int> Main(string[] args)
+        var root = new RootCommand("ULID tool for .NET Core.")
         {
-            var root = new RootCommand("ULID tool for .NET Core.")
-            {
-                new GenerateCommand(),
-            };
+            new GenerateCommand(),
+        };
 
-            return await root.InvokeAsync(args);
-        }
+        return await root.InvokeAsync(args);
     }
 }
