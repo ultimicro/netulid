@@ -1,7 +1,7 @@
 # NetUlid
 
 This is a dependency-free, high quality and high performance [ULID](https://github.com/ulid/spec) implementation for .NET. It is 100% conformance to the
-specifications.
+specifications. This library has been used extensively on [Cloudsumé](https://cloudsume.com) so it is production ready.
 
 | Package                        | Version                                                                                                                                   |
 | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
