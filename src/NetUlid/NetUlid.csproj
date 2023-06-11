@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0;netstandard2.1</TargetFrameworks>
     <LangVersion>10</LangVersion>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <Description>A dependency-free, high quality and high performance ULID implementation. It is 100% conformance to the specifications.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>

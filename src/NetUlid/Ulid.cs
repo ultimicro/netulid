@@ -180,6 +180,33 @@ public unsafe struct Ulid : IComparable, IComparable<Ulid>, IEquatable<Ulid>
         }
     }
 
+    /// <summary>
+    /// Gets a randomness of this instance.
+    /// </summary>
+    /// <value>
+    /// A randomness of this instance.
+    /// </value>
+    public byte[] Randomness
+    {
+        get
+        {
+            var data = new byte[10];
+
+            data[0] = this.data[6];
+            data[1] = this.data[7];
+            data[2] = this.data[8];
+            data[3] = this.data[9];
+            data[4] = this.data[10];
+            data[5] = this.data[11];
+            data[6] = this.data[12];
+            data[7] = this.data[13];
+            data[8] = this.data[14];
+            data[9] = this.data[15];
+
+            return data;
+        }
+    }
+
     public static bool operator ==(Ulid left, Ulid right)
     {
         return left.Equals(right);

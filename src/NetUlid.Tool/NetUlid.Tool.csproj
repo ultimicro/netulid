@@ -5,8 +5,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>ulid</ToolCommandName>
-    <Version>2.0.0</Version>
-    <Description>A .NET tool for manage and generate ULID.</Description>
+    <Version>2.1.0</Version>
+    <Description>A .NET tool for working with ULID.</Description>
   </PropertyGroup>
 
   <ItemGroup>
