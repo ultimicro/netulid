@@ -10,7 +10,7 @@ specifications. This library has been used extensively on [Cloudsumé](https://c
 
 ## Benchmark
 
-The following is a result of benchmark agains [Ulid](https://github.com/Cysharp/Ulid) and [NUlid](https://github.com/RobThree/NUlid):
+The following is a result of benchmark against [Ulid](https://github.com/Cysharp/Ulid) and [NUlid](https://github.com/RobThree/NUlid):
 
 ```ini
 BenchmarkDotNet=v0.13.1, OS=arch
